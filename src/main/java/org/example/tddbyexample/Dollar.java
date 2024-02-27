@@ -1,23 +1,14 @@
 package org.example.tddbyexample;
 
-public class Dollar
+public class Dollar extends Money
 {
-    private int amount;
-
-    public Dollar(int amount)
+    public Dollar(int amount, String currency)
     {
-        this.amount = amount;
+        super(amount, currency);
     }
 
-    Dollar times(int multiplier)
+    public Money times(int multiplier)
     {
-        return new Dollar(amount * multiplier);
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        Dollar dollar = (Dollar) obj;
-        return amount == dollar.amount;
+        return Money.dollar(amount * multiplier);
     }
 }
