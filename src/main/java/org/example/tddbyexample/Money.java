@@ -1,6 +1,6 @@
 package org.example.tddbyexample;
 
-public class Money
+public class Money implements Expression
 {
     protected int amount;
     protected String currency;
@@ -25,7 +25,8 @@ public class Money
         return new Money(amount, "CHF");
     }
 
-    public Money times(int multiplier)
+    @Override
+    public Expression times(int multiplier)
     {
         return new Money(amount * multiplier, this.currency);
     }
@@ -34,6 +35,17 @@ public class Money
     {
         Money money = (Money) obj;
         return amount == money.amount && this.currency.equals(money.currency);
+    }
+
+    @Override
+    public Expression plus(Expression addend) {
+        return new Sum(this, addend);
+    }
+
+    @Override
+    public Money reduce(Bank bank, String toCurrency)
+    {
+        return new Money(amount / bank.rate(this.currency, toCurrency), toCurrency);
     }
 
     @Override
